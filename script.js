@@ -80,7 +80,7 @@ function setClick (o, r,id, current) {
 }
 
 // Display the game panel
-function panel(r,o, current, action){   
+function setPanel(r,o, current, action){   
     let image,id;
 
     if (action === "leave") {
@@ -107,8 +107,8 @@ function panel(r,o, current, action){
 function initialize () {
 
     for (r=1; r<= 3; r++) {
-       panel(r,'person','left', 'init'); 
-       panel(r,'monkey','left', 'init'); 
+       setPanel(r,'person','left', 'init'); 
+       setPanel(r,'monkey','left', 'init'); 
          }
     left.monkey = 3;
     left.person = 3;
@@ -164,20 +164,20 @@ function boarding () {
             
             if ((personPosition[r] === "left to right") || (personPosition[r] === "right to left")) {
                 personPosition[r] = boatSide;
-                panel(r,"person",boatSide, "arrive");
-                panel(r,"person",toSide, "leave");
+                setPanel(r,"person",boatSide, "arrive");
+                setPanel(r,"person",toSide, "leave");
             } else {
-                panel(r,"person",boatSide, "stay");
-                panel(r,"person",toSide, "stay");
+                setPanel(r,"person",boatSide, "stay");
+                setPanel(r,"person",toSide, "stay");
             }
             
             if ((monkeyPosition[r] === "left to right") || (monkeyPosition[r] === "right to left")) {
                 monkeyPosition[r] = boatSide;
-                panel(r,"monkey",boatSide, "arrive");
-                panel(r,"monkey",toSide, "leave");
+                setPanel(r,"monkey",boatSide, "arrive");
+                setPanel(r,"monkey",toSide, "leave");
             } else {
-                panel(r,"monkey",boatSide, "stay");
-                panel(r,"monkey",toSide, "stay");
+                setPanel(r,"monkey",boatSide, "stay");
+                setPanel(r,"monkey",toSide, "stay");
             }
         }
     }
