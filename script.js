@@ -1,9 +1,11 @@
 // Images and Warning Messages
+const manual = false;
+
 const personImage = '<img id="person" src="person.jpg">';
 const monkeyImage = '<img id="monkey" src="monkey.jpg">';
 const leftBoatImage = '<img class="boat" src="leftBoat.jpg">';
 const rightBoatImage = '<img class="boat" src="rightBoat.jpg">';
-const boatMsg = 'Must board the boat before crossing';
+const boatMsg = 'Must select person/monkey before crossing';
 const leftMsg = 'Left Side: More monkey than People';
 const rightMsg = 'Right Side: More monkey than People';
 let crossing = false;
@@ -69,7 +71,7 @@ function setClick (o, r,id, current) {
 
     response = (boatSide === current) &&  ( (o==="person" && personPosition[r] === current) ||(o==="monkey" && monkeyPosition[r] === current) )
 
-     if (!response) {
+     if (!manual || !response) {
         document.getElementById(id).style.backgroundColor = "ghostwhite";
         document.getElementById(id).onclick = function () {};
     } else {        
@@ -142,10 +144,10 @@ function checkRule () {
 // Switch the boat position; left or right
 function switchSide() {
     if (boatSide === "left") {      
-        document.getElementById("go").innerHTML = "&laquo;&laquo;&laquo; Return....." + rightBoatImage;
+        document.getElementById("go").innerHTML = "Step " + steps + ": After Select then click here to return....." + rightBoatImage;
         boatSide = "right";
     } else {
-        document.getElementById("go").innerHTML = leftBoatImage + ".....Cross &raquo;&raquo;&raquo;"
+        document.getElementById("go").innerHTML = leftBoatImage + "Step " + steps + ": After Select then click here to cross"
         boatSide = "left";
     }
 }
@@ -191,8 +193,8 @@ function boarding () {
     if (errorMsg !== "") {
         alert(errorMsg);
     } else {
-        //alert("step="+steps)Step 1: Click here to board
-        document.getElementById("button").innerHTML = "Step " + nextStep + ": Click here to board the boat";
+        if (!manual) document.getElementById("button").innerHTML = "Step " + nextStep + ": Boat is on the " + boatSide + ", click here to auto Select";
+
         crossing = false;
         if (boatSide === "left"){
             left.monkey -= boat.monkey;
@@ -209,7 +211,9 @@ function boarding () {
         boat.count = 0;
         boat.monkey = 0;
         boat.person = 0;
-        crossRiver();     
+        crossRiver();
+                
+        if (left.monkey+left.person === 0) alert("DONE")
     }
 }
 
@@ -221,7 +225,7 @@ document.getElementById("go").addEventListener("click", boarding);
 document.getElementById("button").onclick = function (){
 if (crossing) return;
     
-    document.getElementById("button").innerHTML = "Step " + steps + ": Click the boat (below) to cross river";
+    document.getElementById("button").innerHTML = "Step " + steps + ": Then click the boat below to cross river";
     crossing = true;
     switch (steps){
         case 1:                        
@@ -279,5 +283,7 @@ if (crossing) return;
 
         default:
     }
-
+if (manual) document.getElementById("button").remove();
 }
+
+if (manual) document.getElementById("button").remove();

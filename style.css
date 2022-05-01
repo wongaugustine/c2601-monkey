@@ -15,7 +15,6 @@ body {
     margin: 20px auto ;
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
     border-radius: 20%;
 }
 h1{
@@ -55,9 +54,6 @@ a:hover {
 
 
 #go {
-  background-color: #4CAF50;
-  color: white;
-    
   float: left;
   border: none;
   outline: none;
